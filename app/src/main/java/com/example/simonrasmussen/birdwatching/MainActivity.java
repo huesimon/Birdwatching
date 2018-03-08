@@ -1,6 +1,7 @@
 package com.example.simonrasmussen.birdwatching;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -80,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
                             // The login is successful
                             //toastMessage("User login successful");
                             Toast.makeText(MainActivity.this, "Login succesful - Checker Info", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, UserObservation.class);
+
+                            startActivity(intent);
                         } else {
                             // Not successful
                             Toast.makeText(MainActivity.this, "User not found", Toast.LENGTH_SHORT).show();
