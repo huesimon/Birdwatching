@@ -6,4 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.simonrasmussen.birdwatching.UserObservation">
 
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="369dp"
+        android:layout_height="201dp"
+        android:text="welcomeText"
+        android:textSize="80sp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="75dp" />
 </android.support.constraint.ConstraintLayout>

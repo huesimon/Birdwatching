@@ -37,11 +37,13 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser fbUser;
     private ProgressDialog progressDialog;
 
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
         // Check if Firebase is already logged in to
         if (firebaseAuth.getCurrentUser() != null) {
@@ -59,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void userLogin() {
-        String email = mailText.getText().toString().trim();
+        final String email = mailText.getText().toString().trim();
         String pass = passText.getText().toString().trim();
 
         if ((TextUtils.isEmpty(email)) || (TextUtils.isEmpty(pass))) {
@@ -72,25 +74,36 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage("Checking user information...");
         progressDialog.show();
 
+
         firebaseAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             // The login is successful
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                             //toastMessage("User login successful");
                             Toast.makeText(MainActivity.this, "Login succesful - Checker Info", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, UserObservation.class);
 
+
+                            //User id, will hopefully be used to search for their own posts in another activity
+                            Log.d("Login", "onComplete: " + user.getUid());
+                            User userCreated = new User(email,user.getUid());
+
+
+                            Intent intent = new Intent(MainActivity.this, UserObservation.class);
+                            intent.putExtra("name", userCreated);
                             startActivity(intent);
                         } else {
-                            // Not successful
-                            Toast.makeText(MainActivity.this, "User not found", Toast.LENGTH_SHORT).show();
+
+                            Toast.makeText(MainActivity.this, "User not found,", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
+
 
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
         @Override
