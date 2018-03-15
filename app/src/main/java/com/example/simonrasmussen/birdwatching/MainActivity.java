@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "onComplete: ");
-                            createdUser("jens", email);
+                            createdUser(email);
                             finish();
                             startActivity(new Intent(MainActivity.this, MainActivity.class));
                         } else {
@@ -132,14 +132,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void createdUser(String name, String email) {
+    public void createdUser(String email) {
+        //Used to upload to firebase
         FirebaseUser fbUser = firebaseAuth.getCurrentUser();
         String userID = fbUser.getUid();
-        User user = new User(email);
-        String childInfo = "UserInfo";
-        databaseReference.child("users").child(childInfo).setValue(user);
+        User user = new User(email,userID);
+
+        //Child = folder, so root/users/userOBJ/email,name and so on
+        databaseReference.child("users").setValue(user);
         Log.d(TAG, "createdUser: " + userID);
-        firebaseAuth.signOut();
     }
 
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
