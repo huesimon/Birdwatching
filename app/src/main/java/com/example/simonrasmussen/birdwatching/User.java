@@ -1,14 +1,16 @@
 package com.example.simonrasmussen.birdwatching;
 
-import java.io.Serializable;
-
 /**
  * Created by Simon Rasmussen on 08-03-2018.
  */
 
-public class User implements Serializable {
+public class User {
     private String email;
     private String userID;
+
+    public User(String email) {
+        this.email = email;
+    }
 
     public User() {
     }
