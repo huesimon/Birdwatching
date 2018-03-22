@@ -8,8 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,11 +25,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
+
+    private String name = "";
     private String email = "";
     private String password = "";
     //variables
     private EditText mailText;
+    private EditText nameText;
     private EditText passText;
     private Button loginBtn;
     private Button signupBtn;
@@ -43,17 +49,43 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
-        // Check if Firebase is already logged in to
+        // Check if Firebase is already logged in to firebase
         if (firebaseAuth.getCurrentUser() != null) {
             // The Firebase is already logged in to
+            Log.d(TAG, "onCreate: " + firebaseAuth.getCurrentUser().getEmail());
+
+            Intent intent = new Intent(MainActivity.this, UserObservation.class);
+            intent.putExtra("email", firebaseAuth.getCurrentUser().getEmail());
+            startActivity(intent);
 
         }
         progressDialog = new ProgressDialog(this);
 
 
+        //
+        //
+        // Everything here is from app_bar class -----------------
+        ImageButton searchBtn = (ImageButton) findViewById(R.id.searchbtn);
+        searchBtn.setOnClickListener(buttonClickListener);
+
+        EditText searchBar = (EditText) findViewById(R.id.searchBar);
+        TextView titleBar = (TextView) findViewById(R.id.titleBar);
+
+        Spinner helpDropDown = (Spinner) findViewById(R.id.helpDropDown);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.settingSelection, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        helpDropDown.setAdapter(adapter);
+
+        //helpDropDown.setOnItemClickListener(dropDownListener);
+        helpDropDown.setOnItemSelectedListener(dropDownListener);
+        titleBar.setText("Title");
+
+        //
+        //
+
+        nameText = (EditText) findViewById(R.id.main_nameText);
         mailText = (EditText) findViewById(R.id.main_emailText);
         passText = (EditText) findViewById(R.id.main_passwordText);
         loginBtn = findViewById(R.id.main_loginbtn);
@@ -63,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void userLogin() {
+        name = nameText.getText().toString().trim();
         email = mailText.getText().toString().trim();
         password = passText.getText().toString().trim();
 
@@ -119,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "onComplete: ");
-                            createdUser(email);
+                            createdUser(name , email);
                             finish();
                             startActivity(new Intent(MainActivity.this, MainActivity.class));
                         } else {
@@ -132,15 +165,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void createdUser(String email) {
+    public void createdUser(String name, String email) {
         //Used to upload to firebase
         FirebaseUser fbUser = firebaseAuth.getCurrentUser();
         String userID = fbUser.getUid();
-        User user = new User(email,userID);
+        User user = new User(name, email,userID);
 
         //Child = folder, so root/users/userOBJ/email,name and so on
-        databaseReference.child("users").setValue(user);
-        Log.d(TAG, "createdUser: " + userID);
+        databaseReference.child("users").child(userID).setValue(user);
+        Log.d(TAG, "createdUser: " + user) ;
     }
 
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {

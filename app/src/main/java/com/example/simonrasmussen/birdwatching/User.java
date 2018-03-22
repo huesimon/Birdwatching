@@ -5,6 +5,7 @@ package com.example.simonrasmussen.birdwatching;
  */
 
 public class User {
+    private String name;
     private String email;
     private String userID;
 
@@ -15,8 +16,18 @@ public class User {
     public User() {
     }
 
-    public User(String email, String userID) {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public User(String name, String email, String userID) {
+        this.name = name;
         this.email = email;
+
         this.userID = userID;
     }
 

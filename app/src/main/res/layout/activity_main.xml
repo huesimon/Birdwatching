@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.simonrasmussen.birdwatching.MainActivity">
 
+    <include layout="@layout/app_bar"
+        android:id="@+id/action_bar"/>
+
     <EditText
         android:id="@+id/main_emailText"
         android:layout_width="wrap_content"
@@ -22,13 +25,13 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16" />
+        app:layout_constraintVertical_bias="0.342" />
 
     <EditText
         android:id="@+id/main_passwordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="296dp"
+        android:layout_marginBottom="232dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
@@ -69,4 +72,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.867" />
+
+    <EditText
+        android:id="@+id/main_nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="main_nameText"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.151" />
 </android.support.constraint.ConstraintLayout>
