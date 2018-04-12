@@ -6,4 +6,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.simonrasmussen.birdwatching.BirdCatalog">
 
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

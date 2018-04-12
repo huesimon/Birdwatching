@@ -8,13 +8,13 @@ package com.example.simonrasmussen.birdwatching.Objects;
 
 public class Bird {
     private String created;
-    private int ID;
+    private String ID;
     private String nameDanish;
     private String nameEnglish;
     private String photoURL;
 
 
-    public Bird(String created, int ID, String nameDanish, String nameEnglish, String photoURL) {
+    public Bird(String created, String ID, String nameDanish, String nameEnglish, String photoURL) {
         this.created = created;
         this.ID = ID;
         this.nameDanish = nameDanish;
@@ -25,6 +25,10 @@ public class Bird {
     public Bird() {
     }
 
+    public Bird(String ID) {
+        this.ID = ID;
+    }
+
     public String getCreated() {
         return created;
     }
@@ -33,11 +37,11 @@ public class Bird {
         this.created = created;
     }
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 

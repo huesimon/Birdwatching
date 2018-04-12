@@ -8,11 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
             // The Firebase is already logged in to
             Log.d(TAG, "onCreate: " + firebaseAuth.getCurrentUser().getEmail());
 
-            Intent intent = new Intent(MainActivity.this, UserObservation.class);
+            //TODO:Intent intent = new Intent(MainActivity.this, UserObservation.class);
+            Intent intent = new Intent(MainActivity.this, BirdCatalog.class);
             intent.putExtra("email", firebaseAuth.getCurrentUser().getEmail());
             startActivity(intent);
 
@@ -67,19 +65,11 @@ public class MainActivity extends AppCompatActivity {
         //
         //
         // Everything here is from app_bar class -----------------
-        ImageButton searchBtn = (ImageButton) findViewById(R.id.searchbtn);
-        searchBtn.setOnClickListener(buttonClickListener);
 
         EditText searchBar = (EditText) findViewById(R.id.searchBar);
         TextView titleBar = (TextView) findViewById(R.id.titleBar);
 
-        Spinner helpDropDown = (Spinner) findViewById(R.id.helpDropDown);
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.settingSelection, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        helpDropDown.setAdapter(adapter);
 
-        //helpDropDown.setOnItemClickListener(dropDownListener);
-        helpDropDown.setOnItemSelectedListener(dropDownListener);
         titleBar.setText("Title");
 
         //
@@ -127,7 +117,8 @@ public class MainActivity extends AppCompatActivity {
                             Log.d("Login", "onComplete: " + user.getUid());
 
 
-                            Intent intent = new Intent(MainActivity.this, UserObservation.class);
+                            //TODO:Intent intent = new Intent(MainActivity.this, UserObservation.class);
+                            Intent intent = new Intent(MainActivity.this, BirdCatalog.class);
                             //Used to show the email in the next Activity (just for POC)
                             User createdUser = new User(email);
                             intent.putExtra("email", createdUser.getEmail());

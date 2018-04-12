@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".UserObservation" />
-        <activity android:name=".BirdCatalog"></activity>
+        <activity android:name=".BirdCatalog" />
     </application>
 
 </manifest>
