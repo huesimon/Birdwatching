@@ -1,5 +1,6 @@
 package com.example.simonrasmussen.birdwatching;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +43,9 @@ public class BirdCatalog extends AppCompatActivity {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "onItemClick: bird:" + birdList.get(position)) ;
+                Intent intent = new Intent(BirdCatalog.this, BirdInfo.class);
+                intent.putExtra("bird", birdList.get(position));
+                startActivity(intent);
             }
         });
 
