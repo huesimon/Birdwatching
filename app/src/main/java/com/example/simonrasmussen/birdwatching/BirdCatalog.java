@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -35,13 +37,21 @@ public class BirdCatalog extends AppCompatActivity {
         lv = findViewById(R.id.list);
 
         new GetBrids().execute();
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick: bird:" + birdList.get(position)) ;
+            }
+        });
+
     }
 
     private class GetBrids extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(BirdCatalog.this,"Json Data is downloading",Toast.LENGTH_LONG).show();
+            Toast.makeText(BirdCatalog.this, "Json Data is downloading", Toast.LENGTH_LONG).show();
 
         }
 
@@ -64,8 +74,8 @@ public class BirdCatalog extends AppCompatActivity {
                         String id = c.getString("Id");
                         String danishName = c.getString("NameDanish");
                         String englishName = c.getString("NameEnglish");
-
-
+                        String created = c.getString("Created");
+                        String photoURL = c.getString("PhotoUrl");
 
 
                         // tmp hash map for single bird
@@ -74,12 +84,14 @@ public class BirdCatalog extends AppCompatActivity {
                         // adding each child node to HashMap key => value
                         bird.put("id", id);
                         bird.put("DanishName", danishName);
-                        bird.put("EnglishName", englishName );
+                        bird.put("EnglishName", englishName);
+                        bird.put("Created", created);
+                        bird.put("PhotoUrl", photoURL);
 
 
                         // adding bird to bird list
                         birdList.add(bird);
-                        Log.d(TAG, "doInBackground: "+ bird);
+                        Log.d(TAG, "doInBackground: " + bird);
                     }
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -113,9 +125,11 @@ public class BirdCatalog extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             ListAdapter adapter = new SimpleAdapter(BirdCatalog.this, birdList,
-                    R.layout.row, new String[]{ "id","DanishName","EnglishName"},
+                    R.layout.row, new String[]{"id", "DanishName", "EnglishName"},
                     new int[]{R.id.id, R.id.DanishName, R.id.EnglishName});
             lv.setAdapter(adapter);
         }
+
     }
-    }
+
+}
