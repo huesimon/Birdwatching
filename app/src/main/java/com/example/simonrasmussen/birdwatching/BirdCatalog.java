@@ -57,35 +57,25 @@ public class BirdCatalog extends AppCompatActivity {
                 try {
                     JSONArray birds = new JSONArray(jsonStr);
                     Log.d(TAG, "doInBackground: " + birds.length());
-                    /*
-                    JSONObject jsonObj = new JSONObject(jsonStr);
 
-                    // Getting JSON Array node
-                    JSONArray contacts = jsonObj.getJSONArray("contacts");
-*/
                     // looping through All Contacts
                     for (int i = 0; i < birds.length(); i++) {
                         JSONObject c = birds.getJSONObject(i);
-                        String id = c.getString("id");
-                        String name = c.getString("name");
-                        String email = c.getString("email");
-                        String address = c.getString("address");
-                        String gender = c.getString("gender");
+                        String id = c.getString("Id");
+                        String danishName = c.getString("NameDanish");
+                        String englishName = c.getString("EnglishName");
 
-                        // Phone node is JSON Object
-                        JSONObject phone = c.getJSONObject("phone");
-                        String mobile = phone.getString("mobile");
-                        String home = phone.getString("home");
-                        String office = phone.getString("office");
+
+
 
                         // tmp hash map for single contact
                         HashMap<String, String> contact = new HashMap<>();
 
                         // adding each child node to HashMap key => value
-                        contact.put("id", id);
-                        contact.put("name", name);
-                        contact.put("email", email);
-                        contact.put("mobile", mobile);
+                        contact.put("name", id);
+                        contact.put("email", danishName);
+                        contact.put("mobile", englishName );
+
 
                         // adding contact to contact list
                         contactList.add(contact);
@@ -123,8 +113,8 @@ public class BirdCatalog extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             ListAdapter adapter = new SimpleAdapter(BirdCatalog.this, contactList,
-                    R.layout.row, new String[]{ "email","mobile"},
-                    new int[]{R.id.email, R.id.mobile});
+                    R.layout.row, new String[]{ "email","mobile","name"},
+                    new int[]{R.id.email, R.id.mobile, R.id.name});
             lv.setAdapter(adapter);
         }
     }
