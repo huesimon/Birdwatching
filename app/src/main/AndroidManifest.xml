@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".UserObservation" />
         <activity android:name=".BirdCatalog" />
-        <activity android:name=".BirdInfo"></activity>
+        <activity android:name=".BirdInfo" />
+        <activity android:name=".CreateObservation"></activity>
     </application>
 
 </manifest>

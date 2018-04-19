@@ -1,4 +1,4 @@
-package com.example.simonrasmussen.birdwatching;
+package com.example.simonrasmussen.birdwatching.Objects;
 
 /**
  * Created by Simon Rasmussen on 08-03-2018.
