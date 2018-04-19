@@ -47,6 +47,9 @@ public class BirdInfo extends AppCompatActivity {
                 {
                     case R.id.bird_info_createbtn:
                         Log.d("Hello", "CLICKED" + hashMap.get("DanishName"));
+                        Intent intent = new Intent(BirdInfo.this, CreateObservation.class);
+                        intent.putExtra("bird", hashMap );
+                        startActivity(intent);
                         break;
                 }
 

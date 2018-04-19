@@ -59,6 +59,12 @@
             android:hint="inputDate"
             android:inputType="textPersonName" />
 
+        <Button
+            android:id="@+id/submitBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create" />
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
